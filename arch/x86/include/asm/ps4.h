@@ -13,7 +13,7 @@
 
 #include <linux/irqdomain.h>
 
-#define PS4_DEFAULT_TSC_FREQ 2394000000
+#define PS4_DEFAULT_TSC_FREQ 2194000000
 
 #define BCPIE_BAR4_ADDR 0xc9000000
 #define EMC_TIMER_BASE (BCPIE_BAR4_ADDR + 0x9000) //BAR4 + 0x9000, seems this is not HPET timer, Baikal WDT
