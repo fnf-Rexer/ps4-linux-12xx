@@ -1,0 +1,31 @@
+name: Kernel Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install build tools
+        run: |
+          sudo apt update
+          sudo apt install -y clang lld bc libssl-dev libelf-dev bison flex make git
+      - name: Prepare kernel
+        run: |
+          make mrproper
+          make defconfig
+      - name: Compile kernal
+        run: |
+          make -j2 CC=clang LD=ld.lld
+      - name: Upload bzImage
+        uses: actions/upload-artifact@v3
+        with:
+          name: bzImage
+          path: arch/x86/boot/bzImage
